@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div
+      class="flex flex-col items-center w-[100vw] h-[100vh] bg-[rgba(0,0,0,0.5)] sm:p-4 p-2"
+    >
+      <h1 class="text-white text-[30px] font-bold my-4">URL Shortner</h1>
+      <form
+        action="/short-url"
+        method="post"
+        class="flex items-center gap-[10px]"
+      >
+        <label
+          for="fullUrl"
+          class="mb-2 text-sm font-medium text-white min-w-[60px] dark:text-white sm:block hidden"
+          >Full Url :
+        </label>
+        <input
+          type="text"
+          id="fullUrl"
+          name="fullUrl"
+          class="bg-gray-50 border sm:min-w-[300px] w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Url"
+          required
+        />
+
+        <button
+          type="submit"
+          class="py-1.5 min-w-[110px] px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        >
+          Shrink Url
+        </button>
+      </form>
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg my-4">
+        <table
+          class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        >
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          >
+            <tr>
+              <th scope="col" class="px-6 py-3">Full Url</th>
+              <th scope="col" class="px-6 py-3">Short Url</th>
+              <th scope="col" class="px-6 py-3">Clicks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% shortUrls.forEach(shortUrl => { %>
+            <tr
+              class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+            >
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                <a href="<%= shortUrl.full %>"><%= shortUrl.full %></a>
+              </th>
+              <td class="px-6 py-4">
+                <a href="/<%= shortUrl.short %>"><%= shortUrl.short %></a>
+              </td>
+              <td class="px-6 py-4"><%= shortUrl.clicks %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
